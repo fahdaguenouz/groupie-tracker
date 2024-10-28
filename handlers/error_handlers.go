@@ -13,7 +13,7 @@ func ErrorHandler(w http.ResponseWriter, r *http.Request, statusCode int) {
 		return
 	}
 	customError := models.Error{
-		StatusCode: http.StatusNotFound,
+		StatusCode: statusCode,
 		Error:      http.StatusText(statusCode),
 	}
 	w.WriteHeader(statusCode)
