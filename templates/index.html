@@ -4,9 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groupie-Tracker</title>
+<style>
+    body { font-family: Arial, sans-serif; }
+    ul { list-style-type: none; }
+    li { margin: 20px 0; }
+    img { width: 100px; height: auto; }
+</style>
 </head>
 <body>
-    <h1>This is home </h1>
-    <h3>Welcome</h3>
+<h1>Artists</h1>
+<ul>
+    {{range .}}
+    <li>
+        <h2>{{.Name}}</h2>
+        <img src="{{.Image}}" alt="{{.Name}}">
+        <a href="/artists/{{.ID}}">View Details</a>
+    </li>
+    {{end}}
+</ul>
 </body>
 </html>
