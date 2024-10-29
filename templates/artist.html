@@ -3,87 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Artist.Name}} - Details</title>
-    <style>
-       body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-}
-
-.container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-h1, h2 {
-    color: #333;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-}
-
-a {
-    display: inline-block;
-    margin-top: 20px;
-    text-decoration: none;
-    color: #007bff;
-}
-
-    </style>
+    <title>{{.Name}}</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 20px auto;
+        line-height: 1.6;
+        color: #333;
+    }
+    .artist-info {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .artist-info img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+    h2 {
+        margin-top: 0;
+        color: #0056b3;
+    }
+    .section-title {
+        font-weight: bold;
+        color: #0056b3;
+        margin-top: 15px;
+    }
+    .list {
+        list-style-type: square;
+        padding-left: 20px;
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>{{ .Artist.Name }}</h1>
-        <img src="{{ .Artist.Image }}" alt="{{ .Artist.Name }}">
-        <p><strong>Members:</strong></p>
-        <ul>
-            {{ range .Artist.Members }}
-                <li>{{ . }}</li>
-            {{ end }}
+<div class="artist-info">
+    <img src="{{.Image}}" alt="{{.Name}}">
+    <h2>{{.Name}}</h2>
+    <p><strong>Artist ID:</strong> {{.ID}}</p>
+    <p><strong>Creation Date:</strong> {{.CreationDate}}</p>
+    <p><strong>First Album:</strong> {{.FirstAlbum}}</p>
+
+    <div class="section-title">Members:</div>
+    <ul class="list">
+        {{range .Members}}
+            <li>{{.}}</li>
+        {{end}}
+    </ul>
+
+    <div class="section-title">Locations:</div>
+        <ul class="list">
+            {{range .Loca.Locations}}
+                <li>{{.}}</li>
+            {{end}}
         </ul>
-        <p><strong>Creation Date:</strong> {{ .Artist.CreationDate }}</p>
-        <p><strong>First Album:</strong> {{ .Artist.FirstAlbum }}</p>
-        
-        <h2>Concert Locations</h2>
-        <ul>
-            {{ range .Locations }}
-                <li>{{ .Locations }}</li>
-            {{ end }}
-        </ul>
-        
-        <h2>Concert Dates</h2>
-        <ul>
-            {{ range .Dates }}
-                <li>{{ .Dates }}</li>
-            {{ end }}
-        </ul>
-        
-        <h2>Relations</h2>
-<ul>
-    {{ range $key, $value := .Relations.DatesLocations }}
-        <li>{{ $key }}:
-            <ul>
-                {{ range $value }}
-                    <li>{{ . }}</li>
-                {{ end }}
-            </ul>
-        </li>
-    {{ end }}
-</ul>
-        <a href="/">Back to Artists</a> <!-- Link to return to the artist list -->
-    </div>
+
+    <div class="section-title">Concert Dates:</div>
+    <ul class="list">
+        {{range .Loca.AllDates.Dates}}
+            <li>{{.}}</li>
+        {{end}}
+    </ul>
+
+    <div class="section-title">Relations:</div>
+    <ul class="list">
+        {{range $location, $dates := .Rela.DatesLocations}}
+            <li><strong>{{$location}}:</strong>
+                <ul class="list">
+                    {{range $dates}}
+                        <li>{{.}}</li>
+                    {{end}}
+                </ul>
+            </li>
+        {{end}}
+    </ul>
+    <a href="/">back home</a>
+</div>
 </body>
 </html>

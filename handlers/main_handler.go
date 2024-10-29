@@ -10,6 +10,10 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 		ErrorHandler(w, r, http.StatusMethodNotAllowed)
 		return
 	}
+	if r.URL.Path != "/" {
+		ErrorHandler(w, r, http.StatusNotFound)
+        return
+	}
 	var err error
 	artists, err := FetchArtists()
 	if err != nil {

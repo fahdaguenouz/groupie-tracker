@@ -20,6 +20,7 @@ func AssetsHandler(w http.ResponseWriter, r *http.Request) {
         handleImageAssets(w, r)
     } else {
         ErrorHandler(w, r, http.StatusNotFound)
+        return
     }
 }
 
